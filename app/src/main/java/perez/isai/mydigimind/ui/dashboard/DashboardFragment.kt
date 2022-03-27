@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.commit
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,7 +12,6 @@ import kotlinx.android.synthetic.main.fragment_dashboard.*
 import perez.isai.mydigimind.R
 import perez.isai.mydigimind.Recordatorio
 import perez.isai.mydigimind.TimePickerFragment
-import perez.isai.mydigimind.ui.home.HomeFragment
 
 class DashboardFragment : Fragment() {
 
@@ -40,49 +37,37 @@ class DashboardFragment : Fragment() {
         }
         btnSave.setOnClickListener {
             var name = editTextInputRemember.text
-            var days = ""
+            var days = ArrayList<String>()
             var time = txtHour.text.toString()
-                if( check_monday.isChecked) {
-                    days+= "Mon"
+
+            if( check_monday.isChecked) {
+                    days.add("Monday")
                 }
                 if(check_tuesday.isChecked) {
-                    days += if (days.isNotEmpty()){
-                        ",Tue"
-                    }else
-                        "Tue"
+                    days.add("Monday")
                 }
                 if(check_wednesday.isChecked) {
-                    days+= if(days.isNotEmpty()){
-                        ",Wed"
-                    }else "Wed"
+                    days.add("Monday")
                 }
                 if(check_thursday.isChecked) {
-                    days+= if(days.isNotEmpty()){
-                        ",Thu"
-                    }else
-                        "Thu"
+                    days.add("Monday")
                 }
                 if(check_friday.isChecked) {
-                    days+= if(days.isNotEmpty()){
-                        ",Fri"
-                    }else "Fri"
+                    days.add("Monday")
                 }
                 if(check_saturday.isChecked) {
-                    days+= if(days.isNotEmpty()){
-                        ",Sat"
-                    }else "Sat"
+                    days.add("Monday")
                 }
                 if(check_sunday.isChecked){
-                    days+= if(days.isNotEmpty()){
-                        ",Sun"
-                    }else "Sun"
+                    days.add("Monday")
                 }
                 if(check_monday.isChecked && check_tuesday.isChecked && check_wednesday.isChecked && check_thursday.isChecked && check_friday.isChecked &&
                         check_saturday.isChecked && check_sunday.isChecked) {
-                    days="Everyday"
+                            days.removeAll(days)
+                            days.add("Everyday")
                 }
 
-            var recordatorio = Recordatorio(days,time,name)
+            var recordatorio = Recordatorio(days,time,name.toString())
             val bundle = Bundle()
             bundle.putSerializable("recordatorio",recordatorio)
             clean()

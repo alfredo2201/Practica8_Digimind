@@ -7,27 +7,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.TextView
-import androidx.annotation.NonNull
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentResultListener
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.recordatorios.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.recordatorios.view.*
-import kotlinx.coroutines.newFixedThreadPoolContext
 import perez.isai.mydigimind.Carrito
 import perez.isai.mydigimind.R
 import perez.isai.mydigimind.Recordatorio
-import perez.isai.mydigimind.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
     private lateinit var homeViewModel:HomeViewModel
     var carrito = Carrito()
+    companion object{
+        var task = ArrayList<Recordatorio>()
+        var first = true
+    }
+
     private var adapter: RecordatorioAdapter? = null
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,9 +35,19 @@ class HomeFragment : Fragment() {
         homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home,container,false)
+
         homeViewModel.text.observe(viewLifecycleOwner, Observer{
 
         })
+        if(first){
+            fillTask()
+            first = false
+        }
+        adapter = RecordatorioAdapter(context,carrito.recordatorios)
+        root.gridView.adapter = adapter
+        for (t in task){
+            carrito.agregar(t)
+        }
         return root
     }
 
@@ -51,11 +59,20 @@ class HomeFragment : Fragment() {
         setFragmentResultListener("key") { recordatorio, bundle ->
             val result: Recordatorio = bundle.getSerializable("recordatorio") as Recordatorio
             carrito.agregar(result)
-            adapter = RecordatorioAdapter(context,carrito.recordatorios)
-            gridView.adapter = adapter
         }
 
     }
+    fun fillTask(){
+        task.add(Recordatorio(arrayListOf("Tuesday"),"17:30","Practice 1"))
+        task.add(Recordatorio(arrayListOf("Monday","Tuesday"),"17:30","Practice 2"))
+        task.add(Recordatorio(arrayListOf("Wednesday"),"17:30","Practice 3"))
+        task.add(Recordatorio(arrayListOf("Wednesday"),"17:30","Practice 4"))
+        task.add(Recordatorio(arrayListOf("Friday"),"17:30","Practice 5"))
+        task.add(Recordatorio(arrayListOf("Wednesday"),"17:30","Practice 6"))
+
+
+    }
+
     class RecordatorioAdapter: BaseAdapter {
         var recordatorio = ArrayList<Recordatorio>()
         var context: Context? = null
