@@ -59,9 +59,11 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/btn_contrasena"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginVertical="20dp"
+            android:textSize="17sp"
             android:text="¿Olvidaste tu contraseña?"
             android:layout_gravity="center_horizontal"
             />

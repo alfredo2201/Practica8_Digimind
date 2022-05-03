@@ -24,12 +24,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPassword"
+            android:inputType="text"
             android:hint="Correo electronico"
             android:minHeight="48dp" />
 
             <Button
-                android:id="@+id/btn_registrar"
+                android:id="@+id/btn_restablecer"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginHorizontal="10dp"

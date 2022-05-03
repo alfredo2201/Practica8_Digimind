@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Correo electronico"
-            android:textSize="20sp"
+            android:textSize="16sp"
             tools:ignore="TouchTargetSizeCheck"
             android:inputType="text"
             />
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:inputType="textPassword"
             android:hint="Contraseña"
             android:minHeight="48dp" />
@@ -45,17 +45,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:inputType="textPassword"
             android:hint="Confirmar contraseña"
             android:minHeight="48dp" />
         <Button
             android:id="@+id/btn_registrar"
             android:layout_width="250dp"
-            android:layout_height="70dp"
+            android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginHorizontal="10dp"
-            android:textSize="16sp"
+            android:textSize="13sp"
             android:text="Registrarse"/>
     </LinearLayout>
 </LinearLayout>
