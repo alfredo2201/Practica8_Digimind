@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.recordatorios.view.*
@@ -63,12 +64,12 @@ class HomeFragment : Fragment() {
 
     }
     fun fillTask(){
-        task.add(Recordatorio(arrayListOf("Tuesday"),"17:30","Practice 1"))
-        task.add(Recordatorio(arrayListOf("Monday","Tuesday"),"17:30","Practice 2"))
-        task.add(Recordatorio(arrayListOf("Wednesday"),"17:30","Practice 3"))
-        task.add(Recordatorio(arrayListOf("Wednesday"),"17:30","Practice 4"))
-        task.add(Recordatorio(arrayListOf("Friday"),"17:30","Practice 5"))
-        task.add(Recordatorio(arrayListOf("Wednesday"),"17:30","Practice 6"))
+        //task.add(Recordatorio(arrayListOf("Tuesday"),"17:30","Practice 1"))
+       // task.add(Recordatorio(arrayListOf("Monday","Tuesday"),"17:30","Practice 2"))
+       // task.add(Recordatorio(arrayListOf("Wednesday"),"17:30","Practice 3"))
+       // task.add(Recordatorio(arrayListOf("Wednesday"),"17:30","Practice 4"))
+      //  task.add(Recordatorio(arrayListOf("Friday"),"17:30","Practice 5"))
+       // task.add(Recordatorio(arrayListOf("Wednesday"),"17:30","Practice 6"))
 
 
     }
@@ -77,10 +78,11 @@ class HomeFragment : Fragment() {
         var recordatorio = ArrayList<Recordatorio>()
         var context: Context? = null
 
-        constructor(context: Context?, recordatorio: ArrayList<Recordatorio>){
+        constructor(context: Context?, recordatorio: ArrayList<Recordatorio>) {
             this.context = context
             this.recordatorio = recordatorio
         }
+
         override fun getCount(): Int {
             return recordatorio.size
         }
@@ -95,12 +97,44 @@ class HomeFragment : Fragment() {
 
         override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
             var rec = recordatorio[p0]
-            var inflator = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            var inflator =
+                context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             var vista = inflator.inflate(R.layout.recordatorios, null)
-            vista.txtDiasRecordatorio.text = rec.dias.toString()
+            var days: ArrayList<String> = arrayListOf()
+            if (rec.lu) {
+                days.add("Monday")
+            }
+            if (rec.ma) {
+                days.add("Tuesday")
+
+            }
+            if (rec.mi) {
+                days.add("Wednesday")
+            }
+            if (rec.ju) {
+                days.add("Thursday")
+            }
+            if (rec.vi) {
+                days.add("Friday")
+
+            }
+            if (rec.sa) {
+                days.add("Saturday")
+            }
+            if (rec.dom) {
+                days.add("Sunday")
+            }
+            if (rec.lu && rec.ma && rec.mi && rec.ju && rec.vi &&
+                rec.sa && rec.dom
+            ) {
+                days.removeAll(days)
+                days.add("Everyday")
+            }
+            vista.txtDiasRecordatorio.text = days.toString()
             vista.txtNombreRecordatorio.text = rec.nombre.toString()
             vista.txtTiempoRecordatorio.text = rec.tiempo.toString()
             return vista
+
         }
 
     }
